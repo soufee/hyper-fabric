@@ -1,8 +1,11 @@
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
+import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
+import org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric_ca.sdk.exception.RegistrationException;
 
+import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,8 +22,8 @@ public class RegisterUser {
         return user;
     }
 
-    public static void register(String userName) {
-        try {
+    public static void register(String userName) throws Exception {
+//        try {
             Main.org1_ca = HFCAClient.createNewInstance("http://" + Main.IP + ":7054", Main.properties);
             Main.org1_ca.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
             Main.org1_admin = new FCUser("admin");
@@ -31,14 +34,14 @@ public class RegisterUser {
             // roles.add("member");
             roles.add("admin");
             Main.org1_user.setRoles(roles);
-        } catch (RegistrationException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Перезапусти докер");
-            return;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+//        } catch (RegistrationException e) {
+//            System.out.println(e.getMessage());
+//            System.out.println("Перезапусти докер");
+//           throw new RegistrationException("Пользователь уже существует", e);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        }
 
     }
 

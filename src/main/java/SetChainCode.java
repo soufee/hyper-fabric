@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
  * Created by shomakhov on 11.08.2017.
  */
 public class SetChainCode {
-    public static void setChainCode(){
-        try {
+    public static void setChainCode() throws Exception{
+
             File cf = new File(Main.CFPATH);
             Main.properties = new Properties();
             Main.properties.setProperty("allowAllHostNames", "true");
@@ -50,15 +50,13 @@ public class SetChainCode {
             ByteString proposalResponsePayload = ByteString.copyFromUtf8("1234");
 
             for (ProposalResponse sdkProposalResponse : responses) {
-                try {
+
                     System.out.println("Chaincore status "+sdkProposalResponse.getStatus());
                     System.out.println("Chaincore message "+sdkProposalResponse.getMessage());
 
                     FabricProposalResponse.Endorsement element = sdkProposalResponse.getProposalResponse().getEndorsement();
                     ed.add(element);
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
+
                 if (proposal == null) {
                     proposal = sdkProposalResponse.getProposal();
                     //  proposalTransactionID = sdkProposalResponse.getTransactionID();
@@ -81,6 +79,6 @@ public class SetChainCode {
             orderers.add( Main.orderer);
             Main.channel.sendTransaction(responses, orderers);
 
-        } catch (Exception e){}
+
     }
 }

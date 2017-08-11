@@ -1,5 +1,7 @@
+import org.apache.tomcat.jni.Error;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
+import org.hyperledger.fabric_ca.sdk.exception.RegistrationException;
 
 import java.io.File;
 import java.security.PrivateKey;
@@ -49,13 +51,19 @@ public class Main {
            properties.setProperty("allowAllHostNames", "true");
            properties.setProperty("pemFile", cf.getAbsolutePath());
 
-           RegisterUser.register("qweqe");
+           RegisterUser.register("asadssdass");
            channel = OpenChannel.openChannel("mychannel");
            SetChainCode.setChainCode();
            Commands.sendTransInit();
-       } catch (Exception e){
-           System.out.println(e.getMessage());
-       }
+       } catch (RegistrationException e){
+         e.printStackTrace();
+            System.out.println("Перезапусти докер");
+            System.out.println("Пользователь уже существует");
+           System.exit(0);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
 
         System.out.println("Введите команду...");
         Scanner scanner = new Scanner(System.in);

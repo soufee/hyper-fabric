@@ -25,8 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class OpenChannel {
     public static  Channel channel;
     public static EventHub eventHub;
-    public static Channel openChannel(String channelName) {
-        try {
+
+    public static Channel openChannel(String channelName) throws Exception{
+
             destroyChannel();
             Main.certificateFile = Paths.get(Main.SERTIFICATEPATH).toFile();
             Main.privateKeyFile = Paths.get(Main.PRIVATKEY).toFile();
@@ -87,11 +88,8 @@ public class OpenChannel {
             channel.initialize();
             System.out.println(channel.getName() + " created!");
             return channel;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
+
+
 
     }
 
