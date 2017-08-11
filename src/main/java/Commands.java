@@ -1,6 +1,8 @@
 import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.TransactionEventException;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -66,6 +68,14 @@ public class Commands {
                 System.out.println(format("Transaction with txid %s failed. %s", te.getTransactionID(), e.getMessage()));
             }
         }
+        if (e instanceof IOException) {
+            System.out.println("Файл не найден или введенный путь не является файлом");
+            return;
+            }
+        if (e instanceof InvalidArgumentException) {
+            System.out.println("Переданные параметры не соответствуют типу команды. Возможно вы пытаетесь получить доступ к несуществующему файлу");
+            return;
+        }
         System.out.println(format("Test failed with %s exception %s", e.getClass().getName(), e.getMessage()));
     }
 
@@ -117,7 +127,8 @@ public class Commands {
         try {
             Main.client.setUserContext(peerAdmin);
             transactionEvent = invokeChaincode(Main.client, Main.channel, Main.chaincodeID, "add", new String[]{fileName, HashFileManager.getFilehash(fileName)});
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             except(e);
         }
         System.out.println("Выходим из ADD");

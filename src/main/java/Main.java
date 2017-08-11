@@ -81,7 +81,9 @@ public class Main {
                     System.out.println("Введите имя файла");
                     Commands.getOldHash(scanner.nextLine());
                 default:
-                    System.out.println();
+                    if (!(line.equals("exit")))
+                    System.out.println("Введите команду");
+                    else
                     break;
             }
 
