@@ -77,8 +77,7 @@ public class OpenChannel {
 
             ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File(Main.CHANELTX));
 
-            channel = Main.client.newChannel(channelName, Main.orderer, channelConfiguration,
-                    Main.client.getChannelConfigurationSignature(channelConfiguration, Main.org1_peer_admin));
+            channel = Main.client.newChannel(channelName, Main.orderer, channelConfiguration, Main.client.getChannelConfigurationSignature(channelConfiguration, Main.org1_peer_admin));
 
             channel.addOrderer(Main.orderer);
             // channel.addPeer(Main.peer);
